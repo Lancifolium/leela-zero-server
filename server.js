@@ -1106,17 +1106,17 @@ app.get('/',  asyncMiddleware( async (req, res, next) => {
         db.collection("games").distinct('ip', { _id: { $gt: objectIdFromDate(Date.now()- 1000 * 60 * 60 * 24) } })
         )})
         .then((list) => {
-            return (list.length + " clients in past 24 hours, ");
+            return ("过去24小时，有" + list.length + "客户端连接； ");
         }),
         cacheIP1hr.wrap('IP1hr', '30s', () => { return Promise.resolve(
         db.collection("games").distinct('ip', { _id: { $gt: objectIdFromDate(Date.now()- 1000 * 60 * 60) } })
         )})
         .then((list) => {
-            return (list.length + " in past hour.<br>");
+            return ("过去1小时，则有" + list.length + "客户端。<br>");
         }),
         db.collection("games").find({ _id: { $gt: objectIdFromDate(Date.now()- 1000 * 60 * 60 * 24) } }).count()
         .then((count) => {
-            return (counter + " total selfplay games. (" + count + " in past 24 hours, ");
+            return (counter + "过去24小时总的自战对局数 (" + count + " in past 24 hours, ");
         }),
         db.collection("games").find({ _id: { $gt: objectIdFromDate(Date.now()- 1000 * 60 * 60) } }).count()
         .then((count) => {
@@ -1128,7 +1128,7 @@ app.get('/',  asyncMiddleware( async (req, res, next) => {
         }),
         db.collection("match_games").find({ _id: { $gt: objectIdFromDate(Date.now()- 1000 * 60 * 60 * 24) } }).count()
         .then((count) => {
-            return (count + " match games in past 24 hours, ");
+            return ("24小时内比赛" + count + "局, ");
         }),
         db.collection("match_games").find({ _id: { $gt: objectIdFromDate(Date.now()- 1000 * 60 * 60) } }).count()
         .then((count) => {
@@ -1325,16 +1325,17 @@ app.get('/',  asyncMiddleware( async (req, res, next) => {
         page += "Leela Zero is available from: <a href=\"https://github.com/gcp/leela-zero\">Github</a>.<br>";
         page += "Check out the <a href=\"https://github.com/gcp/leela-zero/blob/master/FAQ.md\">FAQ</a> and ";
         page += "<a href=\"https://github.com/gcp/leela-zero/blob/master/README.md\">README</a>.<br>";
-        page += `<br>Networks 93229e15 and 8d9c5e80 are net2net trained 256x20 network tests. Not a bug. <a href="https://github.com/gcp/leela-zero/issues/1113">Info here</a>.<br>\n`;
-        page += `<br>Network 6615567e is a net2net trained 128x10 network test. Not a bug. <a href="https://github.com/gcp/leela-zero/issues/965">Info here</a>.<br>\n`;
-        page += "Network 1e2b85cf is best_v1 tested as a reference point. It isn't a normal LZ network. Not a bug.<br>\n";
-        page += "<br>Autogtp will automatically download better networks once found.<br>";
-        page += "Not each trained network will be a strength improvement over the prior one. Patience please. :)<br>";
-        page += "Match games are played at full strength (only 3200 visits).<br>";
-        page += "Training games are played with some randomness in first 30 moves, and noise all game long.<br>";
+        //page += `<br>Networks 93229e15 and 8d9c5e80 are net2net trained 256x20 network tests. Not a bug. <a href="https://github.com/gcp/leela-zero/issues/1113">Info here</a>.<br>\n`;
+	page += `<br>倒垂蓮 古棋訓練俱楽部</br>`;
+//        page += `<br>Network 6615567e is a net2net trained 128x10 network test. Not a bug. <a href="https://github.com/gcp/leela-zero/issues/965">Info here</a>.<br>\n`;
+//        page += "Network 1e2b85cf is best_v1 tested as a reference point. It isn't a normal LZ network. Not a bug.<br>\n";
+        page += "<br>Autogtp会自动下载最新的神经网络。<br>";
+        page += "不是所有的训练的网络都是最强的，要蛋定～<br>";
+        page += "比赛棋是最强状态对局，(？仅3200步？).<br>";
+        page += "前30步随机性大，噪则全局都有.<br>";
         page += "<br>";
-        page += "2018-03-24 <a href=\"https://github.com/gcp/leela-zero/releases\">Leela Zero 0.13 + AutoGTP v15</a>. <b>Update required.</b><br>";
-        page += "2018-02-19 <a href=\"https://github.com/gcp/leela-zero/releases\">Leela Zero 0.12 + AutoGTP v14</a>. <b>Update required.</b><br>";
+//        page += "2018-03-24 <a href=\"https://github.com/gcp/leela-zero/releases\">Leela Zero 0.13 + AutoGTP v15</a>. <b>Update required.</b><br>";
+//        page += "2018-02-19 <a href=\"https://github.com/gcp/leela-zero/releases\">Leela Zero 0.12 + AutoGTP v14</a>. <b>Update required.</b><br>";
         page += "<br>";
 
         responses.map( response => page += response );
